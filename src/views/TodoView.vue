@@ -1,6 +1,6 @@
 <template>
-  <HeadComponent v-on:save-todo="savetodo"/>
-  <BodyComponent v-bind:list="todoList" @todo-delete="tododelete"/>
+    <HeadComponent @save-todo="saveTodo" />
+    <BodyComponent v-bind:list="todoList" @delete-todo="deleteTodo" @check-todo="checkTodo" />
 </template>
 
 <script>
@@ -8,33 +8,41 @@ import HeadComponent from '../components/HeadComponent.vue'
 import BodyComponent from '../components/BodyComponent.vue'
 
 export default {
-  components: {
-    HeadComponent,
-    BodyComponent
-  },
-  data () {
-    return {
-      todoList: [
-      {no:1, todo: 'Hit the gym', cancelFlag: true},
-      {no:2, todo: 'Pay bills', cancelFlag: false},
-      {no:3, todo: 'Meet George', cancelFlag:false},
-      {no:4, todo: 'Buy eggs', cancelFlag: false}
-      ]
-    }
-  },
-  methods: {
-    savetodo(todo) {
-      let idx = this.todoList.length -1;  // 마지막데이터의 index
-      let no = parseInt(this.todoList[idx].no) +1; // 새로운 데이터의 no.
-      let todo1 = {no, todo}
-      this.todoList.splice(this.todoList.length, 0, todo1);
+    components: {
+        HeadComponent,
+        BodyComponent
     },
-    tododelete(no) {
-      this.todoList = this.todoList.filter(todo => todo.no == no ? false:true)
+    data() {
+        return {
+            todoList: [
+                { no: 1, todo: 'Hit the gym', cancelFlag: false},
+                { no: 2, todo: 'Pay bills', cancelFlag: false },
+                { no: 3, todo: 'Meet George', cancelFlag: false },
+                { no: 4, todo: 'Buy eggs', cancelFlag: true }
+            ]
+        }
+    },
+    methods: {
+        saveTodo(todo) {
+            let idx = this.todoList.length - 1;
+            let no = parseInt(this.todoList[idx].no) + 1;
+            let todos = { no, todo, cancelFlag: false };
+            this.todoList.push(todos);
+        },
+        deleteTodo(no) {
+            this.todoList = this.todoList.filter(todo => todo.no == no ? false : true);
+        },
+        checkTodo(todo) {
+            if(todo.cancelFlag == true){
+                todo.cancelFlag = false;
+            } else if (todo.cancelFlag == false){
+                todo.cancelFlag = true;
+            }
+        }
     }
-  }
-}  
+}
 </script>
+
 
 <style>
 body {
