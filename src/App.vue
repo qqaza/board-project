@@ -1,9 +1,11 @@
 <template>
   <nav>
+    <h1>{{getToday}}</h1>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link> |
     <router-link to="/board">게시판</router-link> |
-    <router-link to="/todo">Todo</router-link>
+    <router-link to="/todo">Todo</router-link> |
+    <router-link to="/store">Store</router-link>
 
   </nav>
   <router-view/>
@@ -12,6 +14,7 @@
 <script>
 
 export default {
+
   data () {
     return {
       rootData: 'hello'
@@ -22,6 +25,14 @@ export default {
       rootList: 'Hello, Hi, Hello',
       rootStr: 'World'
     }
+  },
+  computed :{
+    getToday(){
+      return this.$getToday('yyyy/MM/dd');
+    }
+  },
+  mounted() {
+    console.log("App.vue.mounted");
   }
 }
 </script>

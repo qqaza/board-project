@@ -2,12 +2,18 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import BoardView from '../views/BoardView.vue'
 import TodoView from '../views/TodoView.vue'
+import StoreView from '../views/StoreView.vue'
 
 const routes = [
   {
     path: '/',
     name: 'home',
     component: HomeView
+  },
+  {
+    path: '/store',
+    name: 'store',
+    component: StoreView
   },
   {
     path: '/board',
